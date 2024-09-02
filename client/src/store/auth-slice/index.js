@@ -41,6 +41,25 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+// Update password
+export const resetPassword = createAsyncThunk(
+  "/auth/update-password",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        `${api}/auth/update-password`,
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const logoutUser = createAsyncThunk(
   "/auth/logout",
 

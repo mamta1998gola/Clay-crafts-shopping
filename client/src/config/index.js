@@ -39,6 +39,37 @@ export const loginFormControls = [
   },
 ];
 
+export const passwordResetFormControls = [
+  {
+    label: "Email Address",
+    name: "email",
+    type: "email",
+    placeholder: "Enter your email",
+    required: true,
+  },
+  {
+    label: "Current Password",
+    name: "currentPassword",
+    type: "password",
+    placeholder: "Enter your current password",
+    required: true,
+  },
+  {
+    label: "New Password",
+    name: "newPassword",
+    type: "password",
+    placeholder: "Enter your new password",
+    required: true,
+  },
+  {
+    label: "Confirm Password",
+    name: "confirmPassword",
+    type: "password",
+    placeholder: "Confirm new password",
+    required: true,
+  }
+];
+
 export const addProductFormElements = [
   {
     label: "Title",

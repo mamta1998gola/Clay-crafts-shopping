@@ -1,4 +1,4 @@
-import { CookingPot, LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
+import { LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
 import {
   Link,
   useLocation,
@@ -23,6 +23,7 @@ import UserCartWrapper from "./cart-wrapper";
 import { useEffect, useState } from "react";
 import { fetchCartItems } from "@/store/shop/cart-slice";
 import { Label } from "../ui/label";
+import logo from '../../assets/logo.png';
 
 function MenuItems() {
   const navigate = useNavigate();
@@ -139,8 +140,8 @@ function ShoppingHeader() {
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <Link to="/shop/home" className="flex items-center gap-2">
-          <CookingPot className="h-6 w-6" />
-          <span className="font-bold">Erthen Crafts</span>
+          <img src={logo} alt="Clay Crafts Logo" className="h-10 w-auto" />
+          <span className="font-bold">{import.meta.env.VITE_APP_TITLE}</span>
         </Link>
         <Sheet>
           <SheetTrigger asChild>

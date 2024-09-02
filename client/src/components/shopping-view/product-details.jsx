@@ -91,6 +91,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
       } else {
         toast({
           title: "You need to purchase product to review it.",
+          variant: "destructive",
         });
       }
     })

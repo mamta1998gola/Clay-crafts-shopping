@@ -22,6 +22,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import PaypalReturnPage from "./pages/shopping-view/paypal-return";
 import PaymentSuccessPage from "./pages/shopping-view/payment-success";
 import SearchProducts from "./pages/shopping-view/search";
+import AuthPasswordReset from "./pages/auth/password-reset";
+
+// footer content
+import AboutUs from "./components/footer-content/about-us";
+import PrivacyPolicy from "./components/footer-content/privacy-policy";
+import ContactUs from "./components/footer-content/contact-us";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
@@ -90,6 +96,10 @@ function App() {
           <Route path="payment-success" element={<PaymentSuccessPage />} />
           <Route path="search" element={<SearchProducts />} />
         </Route>
+        <Route path="/auth/reset-password" element={<AuthPasswordReset />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="contact-us" element={<ContactUs />} />
         <Route path="/unauth-page" element={<UnauthPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

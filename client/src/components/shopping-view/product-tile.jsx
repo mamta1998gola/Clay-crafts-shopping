@@ -2,12 +2,14 @@ import { Card, CardContent, CardFooter } from "../ui/card";
 import { Button } from "../ui/button";
 import { brandOptionsMap, categoryOptionsMap } from "@/config";
 import { Badge } from "../ui/badge";
+import StarRatingComponent from "../common/star-rating";
 
 function ShoppingProductTile({
   product,
   handleGetProductDetails,
   handleAddtoCart,
 }) {
+
   return (
     <Card className="w-full max-w-sm mx-auto">
       <div onClick={() => handleGetProductDetails(product?._id)}>
@@ -32,7 +34,12 @@ function ShoppingProductTile({
           ) : null}
         </div>
         <CardContent className="p-4">
-          <h2 className="text-xl font-bold mb-2">{product?.title}</h2>
+          <div className="flex justify-between items-center mb-2">
+            <h2 className="text-xl font-bold mb-2">{product?.title}</h2>
+            <div className="flex items-center gap-0.5">
+              <StarRatingComponent rating={product?.averageReview} onlyrating={true}/>
+            </div>
+          </div>
           <div className="flex justify-between items-center mb-2">
             <span className="text-[16px] text-muted-foreground">
               {categoryOptionsMap[product?.category]}

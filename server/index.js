@@ -16,6 +16,12 @@ const shopReviewRouter = require("./routes/shop/review-routes");
 const commonFeatureRouter = require("./routes/common/feature-routes");
 require('dotenv').config()
 
+// Dynamically set allowed origins
+const allowedOrigins = [
+  process.env.BASE_UI_URL,
+  process.env.APP_UI_URL
+];
+
 mongoose
   .connect(process.env.MONGODBURL)
   .then(() => console.log("MongoDB connected"))
@@ -26,7 +32,14 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: process.env.BASE_UI_URL,
+    origin: function (origin, callback) {
+      // If the origin is not specified (like in some non-browser clients), or is allowed, accept the request
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",

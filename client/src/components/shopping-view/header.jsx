@@ -25,7 +25,7 @@ import { fetchCartItems } from "@/store/shop/cart-slice";
 import { Label } from "../ui/label";
 import logo from '../../assets/logo.png';
 
-function MenuItems() {
+function MenuItems({ onMenuItemClick }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -48,6 +48,10 @@ function MenuItems() {
           new URLSearchParams(`?category=${getCurrentMenuItem.id}`)
         )
       : navigate(getCurrentMenuItem.path);
+
+    if (onMenuItemClick) {
+      onMenuItemClick(); // Close the Sheet
+    }
   }
 
   return (
@@ -84,7 +88,7 @@ function HeaderRightContent() {
 
   return (
     <div className="flex lg:items-center lg:flex-row flex-col gap-4">
-      <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+      <Sheet open={openCartSheet} onOpenChange={(open) => setOpenCartSheet(open)}>
         <Button
           onClick={() => setOpenCartSheet(true)}
           variant="outline"
@@ -135,6 +139,7 @@ function HeaderRightContent() {
 
 function ShoppingHeader() {
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const [openMenuSheet, setOpenMenuSheet] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
@@ -143,15 +148,20 @@ function ShoppingHeader() {
           <img src={logo} alt="Clay Crafts Logo" className="h-10 w-auto" />
           <span className="font-bold">{import.meta.env.VITE_APP_TITLE}</span>
         </Link>
-        <Sheet>
+        <Sheet open={openMenuSheet} onOpenChange={(open) => setOpenMenuSheet(open)}>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="lg:hidden">
+            <Button
+              variant="outline"
+              size="icon"
+              className="lg:hidden"
+              onClick={() => setOpenMenuSheet(true)}
+            >
               <Menu className="h-6 w-6" />
               <span className="sr-only">Toggle header menu</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-full max-w-xs">
-            <MenuItems />
+            <MenuItems onMenuItemClick={() => setOpenMenuSheet(false)} />
             <HeaderRightContent />
           </SheetContent>
         </Sheet>

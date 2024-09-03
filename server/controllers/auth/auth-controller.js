@@ -35,7 +35,7 @@ const registerUser = async (req, res) => {
   }
 };
 
-//login
+// login
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -44,13 +44,10 @@ const loginUser = async (req, res) => {
     if (!checkUser)
       return res.json({
         success: false,
-        message: "User doesn't exists! Please register first",
+        message: "User doesn't exist! Please register first",
       });
 
-    const checkPasswordMatch = await bcrypt.compare(
-      password,
-      checkUser.password
-    );
+    const checkPasswordMatch = await bcrypt.compare(password, checkUser.password);
     if (!checkPasswordMatch)
       return res.json({
         success: false,
@@ -64,11 +61,15 @@ const loginUser = async (req, res) => {
         email: checkUser.email,
         userName: checkUser.userName,
       },
-      "CLIENT_SECRET_KEY",
+      process.env.JWT_SECRET || "CLIENT_SECRET_KEY", // Use an environment variable
       { expiresIn: "60m" }
     );
 
-    res.cookie("token", token, { httpOnly: true, secure: false }).json({
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Set to true in production
+      sameSite: 'strict', // Adjust according to your needs
+    }).json({
       success: true,
       message: "Logged in successfully",
       user: {
@@ -82,10 +83,23 @@ const loginUser = async (req, res) => {
     console.log(e);
     res.status(500).json({
       success: false,
-      message: "Some error occured",
+      message: "Some error occurred",
     });
   }
 };
+
+// logout
+const logoutUser = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Set to true in production
+    sameSite: 'strict', // Adjust according to your needs
+  }).json({
+    success: true,
+    message: "Logged out successfully!",
+  });
+};
+
 
 // Update Password
 const updatePassword = async (req, res) => {
@@ -144,15 +158,6 @@ const updatePassword = async (req, res) => {
       message: "An error occurred while updating the password.",
     });
   }
-};
-
-//logout
-
-const logoutUser = (req, res) => {
-  res.clearCookie("token").json({
-    success: true,
-    message: "Logged out successfully!",
-  });
 };
 
 //auth middleware

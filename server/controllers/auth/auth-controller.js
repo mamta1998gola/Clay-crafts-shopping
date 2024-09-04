@@ -61,15 +61,12 @@ const loginUser = async (req, res) => {
         email: checkUser.email,
         userName: checkUser.userName,
       },
-      process.env.JWT_SECRET || "CLIENT_SECRET_KEY", // Use an environment variable
+      process.env.JWT_SECRET || "CLIENT_SECRET_KEY",
       { expiresIn: "60m" }
     );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Set to true in production
-      sameSite: 'strict', // Adjust according to your needs
-    }).json({
+    // Store token in session storage
+    res.json({
       success: true,
       message: "Logged in successfully",
       user: {
@@ -78,6 +75,15 @@ const loginUser = async (req, res) => {
         id: checkUser._id,
         userName: checkUser.userName,
       },
+      token,
+    });
+
+    // Store token in HTTP-only cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Set to true in production
+      sameSite: 'None', // Adjust according to your needs
+      domain: 'clay-crafts-shopping-mamta.vercel.app' // Set the domain
     });
   } catch (e) {
     console.log(e);

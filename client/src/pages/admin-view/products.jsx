@@ -7,6 +7,7 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
 } from "@/components/ui/sheet";
 import { useToast } from "@/components/ui/use-toast";
 import { addProductFormElements } from "@/config";
@@ -54,8 +55,6 @@ function AdminProducts() {
             formData,
           })
         ).then((data) => {
-          console.log(data, "edit");
-
           if (data?.payload?.success) {
             dispatch(fetchAllProducts());
             setFormData(initialFormData);
@@ -100,8 +99,6 @@ function AdminProducts() {
     dispatch(fetchAllProducts());
   }, [dispatch]);
 
-  console.log(formData, "productList");
-
   return (
     <Fragment>
       <div className="mb-5 w-full flex justify-end">
@@ -113,6 +110,7 @@ function AdminProducts() {
         {productList && productList.length > 0
           ? productList.map((productItem) => (
               <AdminProductTile
+                key={productItem._id}
                 setFormData={setFormData}
                 setOpenCreateProductsDialog={setOpenCreateProductsDialog}
                 setCurrentEditedId={setCurrentEditedId}
@@ -135,6 +133,7 @@ function AdminProducts() {
             <SheetTitle>
               {currentEditedId !== null ? "Edit Product" : "Add New Product"}
             </SheetTitle>
+            <SheetDescription />
           </SheetHeader>
           <ProductImageUpload
             imageFile={imageFile}

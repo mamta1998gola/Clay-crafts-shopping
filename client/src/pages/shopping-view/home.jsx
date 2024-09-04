@@ -5,7 +5,6 @@ import bannerThree from "../../assets/banner-3.webp";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-
   Milk,
   GlassWater,
   CookingPot,
@@ -19,6 +18,8 @@ import {
   House,
   LandPlot,
   Shell,
+  Target,
+  Blocks,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
@@ -37,6 +38,7 @@ import { getFeatureImages } from "@/store/common-slice";
 const categoriesWithIcon = [
   { id: "claybottle", label: "Clay bottle", icon: Milk},
   { id: "clayglass", label: "Clay glass", icon: GlassWater},
+  { id: "claytoys", label: "Clay toys", icon: Blocks},
   { id: "clayutensils", label: "Clay utensils", icon: CookingPot},
   { id: "clayjug", label: "Clay jug", icon: Coffee},
   { id: "waterpot", label: "Water pot", icon: Amphora},
@@ -46,6 +48,7 @@ const categoriesWithIcon = [
 const brandsWithIcon = [
   { id: "sachii", label: "Terracotta by Sachii", icon: Amphora },
   { id: "mitticool", label: "Mitticool", icon: BrickWall },
+  { id: "gola", label: "Gola's", icon: Target},
   { id: "indus", label: "Indus Valley", icon: Factory },
   { id: "maestros", label: "Craft Maestros", icon: Salad},
   { id: "craftindia", label: "Clay Craft India", icon: Tent},

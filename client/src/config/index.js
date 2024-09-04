@@ -91,10 +91,11 @@ export const addProductFormElements = [
     options: [
       { id: "claybottle", label: "Clay bottle" },
       { id: "clayglass", label: "Clay glass" },
+      { id: "claytoys", label: "Clay toys" },
       { id: "clayutensils", label: "Clay utensils" },
       { id: "clayjug", label: "Clay jug" },
       { id: "waterpot", label: "Water pot" },
-      { id: "tableplanter", label: "Table top planter" },
+      { id: "tableplanter", label: "Table top planter" }
     ],
   },
   {
@@ -104,12 +105,13 @@ export const addProductFormElements = [
     options: [
       { id: "sachii", label: "Terracotta by Sachii" },
       { id: "mitticool", label: "Mitticool" },
+      { id: "gola", label: "Gola's"},
       { id: "indus", label: "Indus Valley" },
       { id: "maestros", label: "Craft Maestros" },
       { id: "craftindia", label: "Clay Craft India" },
       { id: "kumhargram", label: "Kumhargram" },
       { id: "ethnicindian", label: "The Indian Ethnic Co." },
-      { id: "zishta", label: "Zishta" },
+      { id: "zishta", label: "Zishta" }
     ],
   },
   {
@@ -157,6 +159,11 @@ export const shoppingViewHeaderMenuItems = [
     path: "/shop/listing",
   },
   {
+    id: "claytoys",
+    label: "Clay toys",
+    path: "/shop/listing"
+  },
+  {
     id: "clayutensils",
     label: "Utensils",
     path: "/shop/listing",
@@ -191,6 +198,7 @@ export const shoppingViewHeaderMenuItems = [
 export const categoryOptionsMap = {
   claybottle: "Clay bottle",
   clayglass: "Clay glass",
+  claytoys: "Clay toys",
   clayutensils: "Clay utensils",
   clayjug: "Clay jug",
   waterpot: "Water pot",
@@ -200,6 +208,7 @@ export const categoryOptionsMap = {
 export const brandOptionsMap = {
   sachii: "Terracotta by Sachii",
   mitticool: "Mitticool",
+  gola: "Gola's",
   indus: "Indus Valley",
   maestros: "Craft Maestros",
   craftindia: "Clay Craft India",
@@ -212,6 +221,7 @@ export const filterOptions = {
   category: [
     { id: "claybottle", label: "Clay bottle" },
     { id: "clayglass", label: "Clay glass" },
+    { id: "claytoys", label: "Clay toys" },
     { id: "clayutensils", label: "Clay utensils" },
     { id: "clayjug", label: "Clay jug" },
     { id: "waterpot", label: "Water pot" },
@@ -220,6 +230,7 @@ export const filterOptions = {
   brand: [
     { id: "sachii", label: "Terracotta by Sachii" },
     { id: "mitticool", label: "Mitticool" },
+    { id: "gola", label: "Gola's"},
     { id: "indus", label: "Indus Valley" },
     { id: "maestros", label: "Craft Maestros" },
     { id: "craftindia", label: "Clay Craft India" },

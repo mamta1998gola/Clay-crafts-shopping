@@ -93,7 +93,8 @@ const logoutUser = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production', // Set to true in production
-    sameSite: 'strict', // Adjust according to your needs
+    sameSite: 'None', // Required for cross-site cookies
+    domain: 'clay-crafts-shopping-mamta.vercel.app'
   }).json({
     success: true,
     message: "Logged out successfully!",

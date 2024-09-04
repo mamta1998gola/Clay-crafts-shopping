@@ -35,24 +35,26 @@ const registerUser = async (req, res) => {
   }
 };
 
-// login
+/// login
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const checkUser = await User.findOne({ email });
-    if (!checkUser)
-      return res.json({
+    if (!checkUser) {
+      return res.status(400).json({
         success: false,
         message: "User doesn't exist! Please register first",
       });
+    }
 
     const checkPasswordMatch = await bcrypt.compare(password, checkUser.password);
-    if (!checkPasswordMatch)
-      return res.json({
+    if (!checkPasswordMatch) {
+      return res.status(400).json({
         success: false,
         message: "Incorrect password! Please try again",
       });
+    }
 
     const token = jwt.sign(
       {
@@ -65,8 +67,16 @@ const loginUser = async (req, res) => {
       { expiresIn: "60m" }
     );
 
-    // Store token in session storage
-    res.json({
+    // Set the cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Set to true in production
+      sameSite: 'None', // Adjust according to your needs
+      domain: 'clay-crafts-shopping-mamta.vercel.app' // Set the domain
+    });
+
+    // Send the response
+    return res.json({
       success: true,
       message: "Logged in successfully",
       user: {
@@ -77,17 +87,9 @@ const loginUser = async (req, res) => {
       },
       token,
     });
-
-    // Store token in HTTP-only cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Set to true in production
-      sameSite: 'None', // Adjust according to your needs
-      domain: 'clay-crafts-shopping-mamta.vercel.app' // Set the domain
-    });
   } catch (e) {
     console.log(e);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Some error occurred",
     });

@@ -2,7 +2,6 @@ import { StarIcon } from "lucide-react";
 import { Button } from "../ui/button";
 
 function StarRatingComponent({ rating, handleRatingChange, onlyrating }) {
-  console.log(rating, "rating");
 
   return (
     <div className="flex">

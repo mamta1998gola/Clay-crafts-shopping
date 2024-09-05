@@ -5,7 +5,6 @@ import { deleteCartItem, updateCartQuantity } from "@/store/shop/cart-slice";
 import { useToast } from "../ui/use-toast";
 
 function UserCartItemsContent({ cartItem }) {
-  console.log("+cart=items", cartItem)
   const { user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.shopCart);
   const { productList } = useSelector((state) => state.shopProducts);
@@ -25,8 +24,6 @@ function UserCartItemsContent({ cartItem }) {
           (product) => product._id === getCartItem?.productId
         );
         const getTotalStock = productList[getCurrentProductIndex].totalStock;
-
-        console.log(getCurrentProductIndex, getTotalStock, "getTotalStock");
 
         if (indexOfCurrentCartItem > -1) {
           const getQuantity = getCartItems[indexOfCurrentCartItem].quantity;
@@ -73,15 +70,15 @@ function UserCartItemsContent({ cartItem }) {
   }
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 p-4 border-b border-gray-200">
       <img
         src={cartItem?.image}
         alt={cartItem?.title}
-        className="w-20 h-20 rounded object-cover"
+        className="w-24 h-24 md:w-20 md:h-20 object-cover rounded"
       />
-      <div className="flex-1">
-        <h3 className="font-extrabold">{cartItem?.title}</h3>
-        <div className="flex items-center gap-2 mt-1">
+      <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+        <h3 className="text-lg md:text-xl font-extrabold truncate">{cartItem?.title}</h3>
+        <div className="flex items-center justify-center gap-2 mt-1">
           <Button
             variant="outline"
             className="h-8 w-8 rounded-full"
@@ -100,12 +97,12 @@ function UserCartItemsContent({ cartItem }) {
             onClick={() => handleUpdateQuantity(cartItem, "plus")}
           >
             <Plus className="w-4 h-4" />
-            <span className="sr-only">Decrease</span>
+            <span className="sr-only">Increase</span>
           </Button>
         </div>
       </div>
-      <div className="flex flex-col items-end">
-        <p className="font-semibold">
+      <div className="flex flex-col items-center md:items-end text-center md:text-right mt-4 md:mt-0">
+        <p className="text-lg font-semibold">
           ₹
           {(
             (cartItem?.salePrice > 0 ? cartItem?.salePrice : cartItem?.price) *
@@ -114,7 +111,7 @@ function UserCartItemsContent({ cartItem }) {
         </p>
         <Trash
           onClick={() => handleCartItemDelete(cartItem)}
-          className="cursor-pointer mt-1"
+          className="cursor-pointer mt-2"
           size={20}
         />
       </div>

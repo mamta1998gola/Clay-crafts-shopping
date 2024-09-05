@@ -1,7 +1,4 @@
 import { Button } from "@/components/ui/button";
-import bannerOne from "../../assets/banner-1.webp";
-import bannerTwo from "../../assets/banner-2.webp";
-import bannerThree from "../../assets/banner-3.webp";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -170,6 +167,9 @@ function ShoppingHome() {
           <ChevronRightIcon className="w-4 h-4" />
         </Button>
       </div>
+      <h1 className="text-4xl font-extrabold text-center my-8 bg-gradient-to-r from-teal-400 to-blue-500 text-transparent bg-clip-text drop-shadow-lg">
+        Clay Crafts: Your One-Stop Shop for Handcrafted Clay Products
+      </h1> 
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">

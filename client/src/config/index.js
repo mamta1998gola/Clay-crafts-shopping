@@ -250,7 +250,7 @@ export const shoppingViewPublicHeaderMenuItems = [
   {
     id: "search",
     label: "Search",
-    path: "/shop/search",
+    path: "/search-page",
   },
 ];
 

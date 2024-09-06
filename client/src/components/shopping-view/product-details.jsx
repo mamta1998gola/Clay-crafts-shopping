@@ -156,12 +156,14 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
             ) : (
               <Button
                 className="w-full text-sm md:text-base"
-                onClick={() =>
-                  handleAddToCart(
-                    productDetails?._id,
-                    productDetails?.totalStock
-                  )
-                }
+                onClick={() =>{
+                  if(user) {
+                    handleAddToCart(
+                      productDetails?._id,
+                      productDetails?.totalStock
+                    )
+                  }
+                }}
               >
                 Add to Cart
               </Button>
@@ -207,7 +209,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
               <div className="flex gap-1">
                 <StarRatingComponent
                   rating={rating}
-                  handleRatingChange={handleRatingChange}
+                  handleRatingChange={user ? handleRatingChange : null}
                 />
               </div>
               <Input

@@ -27,6 +27,7 @@ import AuthPasswordReset from "./pages/auth/password-reset";
 import PublicView from "./pages/public-view/publicLayout";
 import HomePage from "./pages/public-view/homepage";
 import ListingPage from "./pages/public-view/listingpage";
+import SearchPage from "./pages/public-view/searchPage";
 
 // footer content
 import AboutUs from "./components/footer-content/about-us";
@@ -67,6 +68,7 @@ function App() {
         >
           <Route path="public-view" element={<HomePage />} />
           <Route path="listing-page" element={<ListingPage />} />
+          <Route path="search-page" element={<SearchPage />} />
         </Route>
         <Route
           path="/auth"

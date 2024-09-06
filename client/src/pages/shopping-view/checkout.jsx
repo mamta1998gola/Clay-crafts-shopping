@@ -3,15 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import UserCartItemsContent from "@/components/shopping-view/cart-items-content";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { createNewOrder } from "@/store/shop/order-slice";
+import { createNewOrder, createInvoice } from "@/store/shop/order-slice";
 import { useToast } from "@/components/ui/use-toast";
+import { v4 as uuidv4 } from 'uuid';
 
 function ShoppingCheckout() {
   const { cartItems } = useSelector((state) => state.shopCart);
   const { user } = useSelector((state) => state.auth);
   const { approvalURL } = useSelector((state) => state.shopOrder);
   const [currentSelectedAddress, setCurrentSelectedAddress] = useState(null);
-  const [isPaymentStart, setIsPaymemntStart] = useState(false);
+  const [isPaymentStart, setIsPaymentStart] = useState(false);
   const dispatch = useDispatch();
   const { toast } = useToast();
 
@@ -28,13 +29,12 @@ function ShoppingCheckout() {
         )
       : 0;
 
-  function handleInitiatePaypalPayment() {
+  async function handleInitiatePaypalPayment() {
     if (cartItems.length === 0) {
       toast({
         title: "Your cart is empty. Please add items to proceed",
         variant: "destructive",
       });
-
       return;
     }
     if (currentSelectedAddress === null) {
@@ -42,11 +42,13 @@ function ShoppingCheckout() {
         title: "Please select one address to proceed.",
         variant: "destructive",
       });
-
       return;
     }
 
+    const uniqueOrderId = uuidv4();
+
     const orderData = {
+      orderId: uniqueOrderId,
       userId: user?.id,
       cartId: cartItems?._id,
       cartItems: cartItems.items.map((singleCartItem) => ({
@@ -77,24 +79,44 @@ function ShoppingCheckout() {
       payerId: "",
     };
 
-    dispatch(createNewOrder(orderData)).then((data) => {
-      if (data?.payload?.success) {
-        setIsPaymemntStart(true);
+    try {
+      setIsPaymentStart(true);
+      
+      // Dispatch createNewOrder action
+      const result = await dispatch(createNewOrder(orderData));
+      
+      if (result.payload?.success) {
+        // If order creation was successful, send email
+        const response = dispatch(createInvoice({ orderId: result.payload.orderId }));
+        
+        if (response.data.success) {
+          // Redirect to PayPal
+          window.location.href = approvalURL;
+          toast({
+            title: response.data?.message || "Order email sent successfully",
+          });
+        } else {
+          throw new Error('Failed to send order email');
+        }
       } else {
-        setIsPaymemntStart(false);
+        throw new Error('Failed to create order');
       }
-    });
+    } catch (error) {
+      console.error('Error in checkout process:', error);
+      setIsPaymentStart(false);
+      toast({
+        title: "Failed to process order. Please try again.",
+        variant: "destructive",
+      });
+    }
   }
 
-  if (approvalURL) {
-    window.location.href = approvalURL;
-  }
-
+  console.log("user details: ", user);
   return (
     <div className="flex flex-col">
       <div className="relative h-[300px] w-full overflow-hidden">
-        <img 
-          src="https://res.cloudinary.com/dzeyjznxu/image/upload/v1725583449/iodtfc44bjjcgdmiw1wm.jpg" 
+        <img
+          src="https://res.cloudinary.com/dzeyjznxu/image/upload/v1725583449/iodtfc44bjjcgdmiw1wm.jpg"
           className="h-full w-full object-cover object-center"
         />
       </div>
@@ -106,8 +128,8 @@ function ShoppingCheckout() {
         <div className="flex flex-col gap-4">
           {cartItems && cartItems.items && cartItems.items.length > 0
             ? cartItems.items.map((item) => (
-                <UserCartItemsContent key={`cart_${item?.productId}`} cartItem={item} />
-              ))
+              <UserCartItemsContent key={`cart_${item?.productId}`} cartItem={item} />
+            ))
             : null}
           <div className="mt-8 space-y-4">
             <div className="flex justify-between">
@@ -126,6 +148,7 @@ function ShoppingCheckout() {
       </div>
     </div>
   );
+
 }
 
 export default ShoppingCheckout;

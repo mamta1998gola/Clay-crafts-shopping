@@ -23,6 +23,18 @@ export const createNewOrder = createAsyncThunk(
   }
 );
 
+export const createInvoice = createAsyncThunk(
+  "/order/createInvoice",
+  async (orderData) => {
+    const response = await axios.post(
+      `${api}/shop/invoice/send-order-email`,
+      orderData
+    );
+
+    return response.data;
+  }
+);
+
 export const capturePayment = createAsyncThunk(
   "/order/capturePayment",
   async ({ paymentId, payerId, orderId }) => {

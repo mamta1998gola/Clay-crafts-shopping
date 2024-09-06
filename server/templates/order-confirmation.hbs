@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+  <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <div style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #dddddd;">
+      <h1 style="font-size: 24px; margin: 0;">Order Confirmation</h1>
+      <p>Thank you for your order! Please find your invoice attached.</p>
+    </div>
+
+    <div style="padding: 20px 0;">
+      <h2 style="font-size: 20px; margin-bottom: 10px;">Order Details</h2>
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 14px; line-height: 1.6;">
+        <tr>
+          <td style="padding: 10px 0;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="150" style="font-weight: bold;">Shipping Address:</td>
+                <td>{{addressInfo.address}}, {{addressInfo.city}} - {{addressInfo.pincode}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 0;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="150" style="font-weight: bold;">Phone:</td>
+                <td>{{addressInfo.phone}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 0;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="150" style="font-weight: bold;">Order ID:</td>
+                <td>{{orderId}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 0;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="150" style="font-weight: bold;">Order Status:</td>
+                <td>{{orderStatus}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 0;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="150" style="font-weight: bold;">Payment Method:</td>
+                <td>{{paymentMethod}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 0;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="150" style="font-weight: bold;">Payment Status:</td>
+                <td>{{paymentStatus}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px 0;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="150" style="font-weight: bold;">Order Date:</td>
+                <td>{{formatDate orderDate}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each cartItems}}
+          <tr>
+            <td>{{this.title}}</td>
+            <td>{{this.quantity}}</td>
+            <td>₹{{this.price}}</td>
+            <td>₹{{calcTotal this.quantity this.price}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+      <p style="font-weight: bold; margin-top: 20px;">Total Amount: ₹{{totalAmount}}</p>
+    </div>
+
+    <div style="text-align: center; padding-top: 20px; border-top: 1px solid #dddddd; font-size: 14px; color: #888888;">
+      <p>If you have any questions, feel free to contact us at <strong>Email:</strong> <a href="mailto:mamta1998gola@gmail.com" style="color: #0066cc;">mamta1998gola@gmail.com</a></p>
+      <p>Clay Crafts, Bangalore</p>
+    </div>
+  </div>
+</body>
+</html>

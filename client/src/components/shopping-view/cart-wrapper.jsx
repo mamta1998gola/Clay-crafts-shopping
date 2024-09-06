@@ -39,7 +39,7 @@ function UserCartWrapper({ cartItems, setOpenCartSheet, onCloseMenuSheet }) {
         onClick={() => {
           navigate("/shop/checkout");
           setOpenCartSheet(false);
-          onCloseMenuSheet(false)
+          if(onCloseMenuSheet) onCloseMenuSheet(false)
         }}
         className="w-full mt-6"
       >

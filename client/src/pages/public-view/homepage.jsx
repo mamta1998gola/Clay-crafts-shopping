@@ -30,8 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import { getFeatureImages } from "@/store/common-slice";
-import Header from "@/components/public-view/header";
-import Footer from "@/components/shopping-view/footer";
+
 
 const categoriesWithIcon = [
   { id: "claybottle", label: "Clay bottle", icon: Milk },
@@ -75,7 +74,7 @@ function ShoppingHome() {
     };
 
     sessionStorage.setItem("filters", JSON.stringify(currentFilter));
-    navigate(`/shop/listing`);
+    navigate(`/listing-page`);
   }
 
   function handleGetProductDetails(getCurrentProductId) {
@@ -115,8 +114,6 @@ function ShoppingHome() {
   }, [dispatch]);
 
   return (
-    <>
-      <Header />
       <div className="flex flex-col min-h-screen">
         <div className="relative w-full h-[600px] overflow-hidden">
           {featureImageList && featureImageList.length > 0
@@ -230,8 +227,6 @@ function ShoppingHome() {
           productDetails={productDetails}
         />
       </div>
-      <Footer />
-    </>
   );
 }
 

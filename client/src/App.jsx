@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import AuthLayout from "./components/auth/layout";
 import AuthLogin from "./pages/auth/login";
 import AuthRegister from "./pages/auth/register";
@@ -23,7 +23,10 @@ import PaypalReturnPage from "./pages/shopping-view/paypal-return";
 import PaymentSuccessPage from "./pages/shopping-view/payment-success";
 import SearchProducts from "./pages/shopping-view/search";
 import AuthPasswordReset from "./pages/auth/password-reset";
+// Public View
+import PublicView from "./pages/public-view/publicLayout";
 import HomePage from "./pages/public-view/homepage";
+import ListingPage from "./pages/public-view/listingpage";
 
 // footer content
 import AboutUs from "./components/footer-content/about-us";
@@ -42,15 +45,29 @@ function App() {
 
   if (isLoading) return <Skeleton className="w-[800] bg-black h-[600px]" />;
 
+  const PublicRedirect = ({ children }) => {
+    const location = useLocation();
+    if (location.pathname === "/") {
+      return <Navigate to="/public-view" />;
+    }
+
+    return <>{children}</>;
+  }
+
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
         <Route
           path="/"
           element={
-            <HomePage />
+            <PublicRedirect>
+              <PublicView />
+            </PublicRedirect>
           }
-        />
+        >
+          <Route path="public-view" element={<HomePage />} />
+          <Route path="listing-page" element={<ListingPage />} />
+        </Route>
         <Route
           path="/auth"
           element={

@@ -72,7 +72,7 @@ function ShoppingHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
-        <Link to="/shop/home" className="flex items-center gap-2">
+        <Link to="/public-view" className="flex items-center gap-2">
           <img src={logo} alt="Clay Crafts Logo" className="h-10 w-auto" />
           <span className="font-bold">{import.meta.env.VITE_APP_TITLE}</span>
         </Link>

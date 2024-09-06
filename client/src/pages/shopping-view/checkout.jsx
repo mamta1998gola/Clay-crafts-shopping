@@ -87,9 +87,10 @@ function ShoppingCheckout() {
       
       if (result.payload?.success) {
         // If order creation was successful, send email
-        const response = dispatch(createInvoice({ orderId: result.payload.orderId }));
+        const response = await dispatch(createInvoice({ orderId: result.payload.orderId }));
         
-        if (response.data.success) {
+        console.log("Status----------", response);
+        if (response.data?.success) {
           // Redirect to PayPal
           window.location.href = approvalURL;
           toast({

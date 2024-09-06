@@ -195,6 +195,65 @@ export const shoppingViewHeaderMenuItems = [
   },
 ];
 
+// public header
+export const shoppingViewPublicHeaderMenuItems = [
+  {
+    id: "home",
+    label: "Home",
+    path: "/public-view",
+  },
+  {
+    id: "products",
+    label: "Products",
+    path: "/listing-page",
+  },
+  {
+    id: "claybottle",
+    label: "Bottle",
+    path: "/listing-page",
+  },
+  {
+    id: "clayglass",
+    label: "Glass",
+    path: "/listing-page",
+  },
+  {
+    id: "claytoys",
+    label: "Clay toys",
+    path: "/listing-page"
+  },
+  {
+    id: "clayutensils",
+    label: "Utensils",
+    path: "/listing-page",
+  },
+  {
+    id: "clayjug",
+    label: "Jug",
+    path: "/listing-page",
+  },
+  {
+    id: "waterpot",
+    label: "Pot",
+    path: "/listing-page",
+  },
+  {
+    id: "tableplanter",
+    label: "Planter",
+    path: "/listing-page",
+  },
+  {
+    id: "accessories",
+    label: "Accessories",
+    path: "/listing-page",
+  },
+  {
+    id: "search",
+    label: "Search",
+    path: "/shop/search",
+  },
+];
+
 export const categoryOptionsMap = {
   claybottle: "Clay bottle",
   clayglass: "Clay glass",

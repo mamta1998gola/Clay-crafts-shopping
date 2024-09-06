@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import logo from '../../assets/logo.png';
-import { shoppingViewHeaderMenuItems } from "@/config";
+import { shoppingViewPublicHeaderMenuItems } from "@/config";
 
 function HeaderRightContent({ onCloseMenuSheet }) {
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ function HeaderRightContent({ onCloseMenuSheet }) {
 
 function MenuItems({ onMenuItemClick }) {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleNavigate(getCurrentMenuItem) {
     sessionStorage.removeItem("filters");
@@ -40,7 +41,7 @@ function MenuItems({ onMenuItemClick }) {
 
     sessionStorage.setItem("filters", JSON.stringify(currentFilter));
 
-    location.pathname.includes("listing") && currentFilter !== null
+    location.pathname.includes("listing-page") && currentFilter !== null
       ? setSearchParams(
         new URLSearchParams(`?category=${getCurrentMenuItem.id}`)
       )
@@ -53,7 +54,7 @@ function MenuItems({ onMenuItemClick }) {
 
   return (
     <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
-      {shoppingViewHeaderMenuItems.map((menuItem) => (
+      {shoppingViewPublicHeaderMenuItems.map((menuItem) => (
         <Label
           onClick={() => handleNavigate(menuItem)}
           className="text-sm font-medium cursor-pointer"

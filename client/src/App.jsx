@@ -23,6 +23,7 @@ import PaypalReturnPage from "./pages/shopping-view/paypal-return";
 import PaymentSuccessPage from "./pages/shopping-view/payment-success";
 import SearchProducts from "./pages/shopping-view/search";
 import AuthPasswordReset from "./pages/auth/password-reset";
+import HomePage from "./pages/public-view/homepage";
 
 // footer content
 import AboutUs from "./components/footer-content/about-us";
@@ -47,10 +48,7 @@ function App() {
         <Route
           path="/"
           element={
-            <CheckAuth
-              isAuthenticated={isAuthenticated}
-              user={user}
-            ></CheckAuth>
+            <HomePage />
           }
         />
         <Route
@@ -97,7 +95,7 @@ function App() {
         <Route path="/auth/reset-password" element={<AuthPasswordReset />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="contact-us" element={<ContactUs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/unauth-page" element={<UnauthPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

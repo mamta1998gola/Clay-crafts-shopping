@@ -14,4 +14,17 @@ API_SECRET=""
 MODE=""
 CLIENT_ID=""
 CLIENT_SECRET=""
+NODE_ENV="development"
+# NODE_ENV=production
+
+JWT_SECRET=""
+
+# Email Invoice Service
+EMAIL_USER=""
+EMAIL_PASS=""
+EMAIL_CLIENT_ID=""
+EMAIL_SECRET=""
+EMAIL_ACCESS_TOKEN=""
+EMAIL_REFRESH_TOKEN=""
+EMAIL_SCOPE="https://mail.google.com/"
 ````

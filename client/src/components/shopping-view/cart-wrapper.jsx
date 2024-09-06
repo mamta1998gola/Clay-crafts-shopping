@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import UserCartItemsContent from "./cart-items-content";
 
-function UserCartWrapper({ cartItems, setOpenCartSheet }) {
+function UserCartWrapper({ cartItems, setOpenCartSheet, onCloseMenuSheet }) {
   const navigate = useNavigate();
 
   const totalCartAmount =
@@ -20,11 +20,11 @@ function UserCartWrapper({ cartItems, setOpenCartSheet }) {
       : 0;
 
   return (
-    <SheetContent className="sm:max-w-md">
+    <SheetContent className="sm:max-w-lg">
       <SheetHeader>
         <SheetTitle>Your Cart</SheetTitle>
       </SheetHeader>
-      <div className="mt-8 space-y-4 overflow-y-auto max-h-[65vh]">
+      <div className="mt-8 space-y-4 overflow-y-auto max-h-[65vh] max-w-full overflow-hidden">
         {cartItems && cartItems.length > 0
           ? cartItems.map((item) => <UserCartItemsContent key={item.productId} cartItem={item} />)
           : <p>Your cart is empty</p>}
@@ -39,6 +39,7 @@ function UserCartWrapper({ cartItems, setOpenCartSheet }) {
         onClick={() => {
           navigate("/shop/checkout");
           setOpenCartSheet(false);
+          onCloseMenuSheet(false)
         }}
         className="w-full mt-6"
       >

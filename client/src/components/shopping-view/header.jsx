@@ -34,19 +34,19 @@ function MenuItems({ onMenuItemClick }) {
     sessionStorage.removeItem("filters");
     const currentFilter =
       getCurrentMenuItem.id !== "home" &&
-      getCurrentMenuItem.id !== "products" &&
-      getCurrentMenuItem.id !== "search"
+        getCurrentMenuItem.id !== "products" &&
+        getCurrentMenuItem.id !== "search"
         ? {
-            category: [getCurrentMenuItem.id],
-          }
+          category: [getCurrentMenuItem.id],
+        }
         : null;
 
     sessionStorage.setItem("filters", JSON.stringify(currentFilter));
 
     location.pathname.includes("listing") && currentFilter !== null
       ? setSearchParams(
-          new URLSearchParams(`?category=${getCurrentMenuItem.id}`)
-        )
+        new URLSearchParams(`?category=${getCurrentMenuItem.id}`)
+      )
       : navigate(getCurrentMenuItem.path);
 
     if (onMenuItemClick) {
@@ -90,10 +90,7 @@ function HeaderRightContent({ onCloseMenuSheet }) {
       {/* Cart Button and Sheet */}
       <Sheet open={openCartSheet} onOpenChange={(open) => setOpenCartSheet(open)}>
         <Button
-          onClick={() => {
-            setOpenCartSheet(true);
-            // if (onCloseMenuSheet) onCloseMenuSheet(); // Close menu on cart click
-          }}
+          onClick={() => setOpenCartSheet(true)}
           variant="outline"
           size="icon"
           className="relative"
@@ -107,6 +104,7 @@ function HeaderRightContent({ onCloseMenuSheet }) {
         {/* Ensure Cart remains open when the menu closes */}
         <UserCartWrapper
           setOpenCartSheet={setOpenCartSheet}
+          onCloseMenuSheet={onCloseMenuSheet}
           cartItems={
             cartItems && cartItems.items && cartItems.items.length > 0
               ? cartItems.items

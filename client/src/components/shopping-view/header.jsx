@@ -146,7 +146,6 @@ function HeaderRightContent({ onCloseMenuSheet }) {
 }
 
 function ShoppingHeader() {
-  const { isAuthenticated } = useSelector((state) => state.auth);
   const [openMenuSheet, setOpenMenuSheet] = useState(false);
 
   return (
@@ -168,7 +167,7 @@ function ShoppingHeader() {
               <span className="sr-only">Toggle header menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-full max-w-xs">
+          <SheetContent side="left" className="sm:w-[70vw] md:w-[60vw] md:max-w-xs">
             <MenuItems onMenuItemClick={() => setOpenMenuSheet(false)} />
             <HeaderRightContent onCloseMenuSheet={() => setOpenMenuSheet(false)} />
           </SheetContent>

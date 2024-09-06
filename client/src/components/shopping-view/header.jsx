@@ -69,7 +69,7 @@ function MenuItems({ onMenuItemClick }) {
   );
 }
 
-function HeaderRightContent() {
+function HeaderRightContent({ onCloseMenuSheet }) {
   const { user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.shopCart);
   const [openCartSheet, setOpenCartSheet] = useState(false);
@@ -78,6 +78,7 @@ function HeaderRightContent() {
 
   function handleLogout() {
     dispatch(logoutUser());
+    if (onCloseMenuSheet) onCloseMenuSheet(); // Close menu on logout
   }
 
   useEffect(() => {
@@ -86,9 +87,13 @@ function HeaderRightContent() {
 
   return (
     <div className="flex lg:items-center lg:flex-row flex-col gap-4">
+      {/* Cart Button and Sheet */}
       <Sheet open={openCartSheet} onOpenChange={(open) => setOpenCartSheet(open)}>
         <Button
-          onClick={() => setOpenCartSheet(true)}
+          onClick={() => {
+            setOpenCartSheet(true);
+            // if (onCloseMenuSheet) onCloseMenuSheet(); // Close menu on cart click
+          }}
           variant="outline"
           size="icon"
           className="relative"
@@ -99,6 +104,7 @@ function HeaderRightContent() {
           </span>
           <span className="sr-only">User cart</span>
         </Button>
+        {/* Ensure Cart remains open when the menu closes */}
         <UserCartWrapper
           setOpenCartSheet={setOpenCartSheet}
           cartItems={
@@ -109,6 +115,7 @@ function HeaderRightContent() {
         />
       </Sheet>
 
+      {/* User Avatar and Dropdown Menu */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar className="bg-black">
@@ -120,7 +127,12 @@ function HeaderRightContent() {
         <DropdownMenuContent side="right" className="w-56">
           <DropdownMenuLabel>Logged in as {user?.userName}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => navigate("/shop/account")}>
+          <DropdownMenuItem
+            onClick={() => {
+              navigate("/shop/account");
+              if (onCloseMenuSheet) onCloseMenuSheet(); // Close menu on account click
+            }}
+          >
             <UserCog className="mr-2 h-4 w-4" />
             Account
           </DropdownMenuItem>
@@ -160,7 +172,7 @@ function ShoppingHeader() {
           </SheetTrigger>
           <SheetContent side="left" className="w-full max-w-xs">
             <MenuItems onMenuItemClick={() => setOpenMenuSheet(false)} />
-            <HeaderRightContent />
+            <HeaderRightContent onCloseMenuSheet={() => setOpenMenuSheet(false)} />
           </SheetContent>
         </Sheet>
         <div className="hidden lg:block">

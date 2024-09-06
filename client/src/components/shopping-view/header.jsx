@@ -78,7 +78,7 @@ function HeaderRightContent({ onCloseMenuSheet }) {
 
   function handleLogout() {
     dispatch(logoutUser());
-    if (onCloseMenuSheet) onCloseMenuSheet(); // Close menu on logout
+    if(onCloseMenuSheet) onCloseMenuSheet(); // Close menu on logout
   }
 
   useEffect(() => {
@@ -128,7 +128,7 @@ function HeaderRightContent({ onCloseMenuSheet }) {
           <DropdownMenuItem
             onClick={() => {
               navigate("/shop/account");
-              if (onCloseMenuSheet) onCloseMenuSheet(); // Close menu on account click
+              if(onCloseMenuSheet) onCloseMenuSheet(); // Close menu on account click
             }}
           >
             <UserCog className="mr-2 h-4 w-4" />

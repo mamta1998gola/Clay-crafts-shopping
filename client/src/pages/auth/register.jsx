@@ -44,6 +44,7 @@ function AuthRegister() {
         <p className="mt-2">
           Already have an account
           <Link
+            data-cy="auth-login"
             className="font-medium ml-2 text-primary hover:underline"
             to="/auth/login"
           >

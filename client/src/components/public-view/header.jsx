@@ -14,6 +14,7 @@ function HeaderRightContent({ onCloseMenuSheet }) {
     <div className="flex lg:items-center lg:flex-row flex-col gap-4">
       {/* Login Button */}
       <Button
+        data-cy="header-login"
         onClick={() => navigate('/auth/login')}
         variant="solid"
         className="bg-black text-white hover:bg-gray-800"

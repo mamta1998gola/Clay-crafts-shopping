@@ -39,8 +39,8 @@ exports.sendOrderEmail = async (req, res) => {
   try {
     const { orderId, customerEmail } = req.body;
 
-    // Fetch order data from your database using orderId
-    const orderData = await Order.findOne({ orderId });
+    // Fetch order data from your database using orderId findById(orderId)
+    const orderData = await Order.findById(orderId);
 
     if (!orderData) {
       return res.status(404).json({ success: false, message: 'Order not found' });
